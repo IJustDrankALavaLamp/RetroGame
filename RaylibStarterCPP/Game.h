@@ -4,7 +4,7 @@
 #include "raylib.h"
 #include <iostream>
 #include <string>
-
+#include <list>
 class Game {
 public:
 	Game();
@@ -24,4 +24,6 @@ private:
 
 	int m_windowWidth = 640;
 	int m_windowHeight = 480;
+
+	std::list<SceneObj> Objs;
 };

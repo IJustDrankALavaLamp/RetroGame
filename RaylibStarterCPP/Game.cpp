@@ -24,6 +24,7 @@ void Game::Load() {
 	srand((unsigned)time(&t));
 
 	SceneObj bkgrnd = SceneObj();
+	Objs.push_back(bkgrnd);
 }
 void Game::Unload() {
 
@@ -50,6 +51,9 @@ void Game::Draw() {
 	BeginDrawing();
 	ClearBackground(RAYWHITE);
 
+	for (int i = 0; i < Objs.size(); i++) {
+
+	}
 
 	EndDrawing();
 }
