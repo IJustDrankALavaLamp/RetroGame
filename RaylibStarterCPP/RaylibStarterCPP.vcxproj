@@ -169,11 +169,13 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjList.cpp" />
     <ClCompile Include="SceneObj.cpp" />
     <ClCompile Include="SpriteObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="ObjList.h" />
     <ClInclude Include="SceneObj.h" />
     <ClInclude Include="SpriteObj.h" />
   </ItemGroup>

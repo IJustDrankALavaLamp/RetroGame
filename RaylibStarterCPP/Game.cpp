@@ -1,4 +1,7 @@
 #include "Game.h"
+
+char dir[] = "C:\\Users\\s200080\\Documents\\RetroGame\\Images\\BasicBackground.png";
+
 Game::Game()
 {
 
@@ -22,9 +25,9 @@ void Game::Run()
 void Game::Load() {
 	time_t t;
 	srand((unsigned)time(&t));
-
-	SceneObj bkgrnd = SceneObj();
-	Objs.push_back(bkgrnd);
+	
+	SceneObj bkgrnd = SceneObj(dir);
+	Objs.add(bkgrnd);
 }
 void Game::Unload() {
 
@@ -45,15 +48,12 @@ void Game::Update(float deltaTime) {
 
 void Game::Shoot(Vector2 mousePos) {
 	std::cout << "x: " << mousePos.x << " y: " << mousePos.y << "\n";
+
 }
 
 void Game::Draw() {
 	BeginDrawing();
 	ClearBackground(RAYWHITE);
-
-	for (int i = 0; i < Objs.size(); i++) {
-
-	}
 
 	EndDrawing();
 }

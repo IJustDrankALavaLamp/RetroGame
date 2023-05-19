@@ -1,26 +1,29 @@
 #include "raylib.h"
 #include "raygui.h"
-#include <list>
+
+#include "SpriteObj.h"
+#include "ObjList.h"
 class SceneObj
 {
 public:
 
 	SceneObj();
+	SceneObj(char image[]);
 	~SceneObj();
-	void Draw();
+	 void Draw();
 
-	void AddChild(SceneObj child);
-	void RemoveChild(SceneObj child);
+
+	 void AddChild(SceneObj child);
+	 void RemoveChild(SceneObj child);
 
 public:
 
 	SceneObj* parent = nullptr;
-
 private:
-
-
-
+	void OnDraw();
 private:
-	std::list<SceneObj> children;
+	Vector2 pos;
+	ObjList children;
+	SpriteObj sprite;
 };
 

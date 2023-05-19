@@ -4,7 +4,9 @@
 #include "raylib.h"
 #include <iostream>
 #include <string>
-#include <list>
+
+#include "ObjList.h"
+
 class Game {
 public:
 	Game();
@@ -21,9 +23,7 @@ private:
 
 	void Shoot(Vector2 mousePos);
 private:
-
 	int m_windowWidth = 640;
 	int m_windowHeight = 480;
 
-	std::list<SceneObj> Objs;
 };

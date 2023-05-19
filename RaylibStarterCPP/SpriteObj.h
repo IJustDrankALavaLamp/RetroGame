@@ -1,12 +1,26 @@
-#include "SceneObj.h"
+#include "raylib.h"
+#include "raygui.h"
 
-class SpriteObj : SceneObj
+class SpriteObj
 {
 public:
-	SpriteObj(char filePath);
+	SpriteObj();
+	SpriteObj(char filePath[]);
+	~SpriteObj();
+	void Draw();
+
+public:
+
+	Texture2D Texture() {
+		return texture;
+	};
+
+private:
+	void OnDraw();
 
 private:
 
+	Vector2 pos;
 	Texture2D texture;
 	Image image;
 };

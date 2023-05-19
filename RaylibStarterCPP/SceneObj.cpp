@@ -1,7 +1,11 @@
 #include "SceneObj.h"
 
 SceneObj::SceneObj() {
-
+	pos.x = 0; pos.y = 0;
+}
+SceneObj::SceneObj(char image[]) {
+	SpriteObj sprit = SpriteObj(image);
+	sprite = sprit;
 }
 SceneObj::~SceneObj() {
 	if (parent != nullptr) {
@@ -10,14 +14,19 @@ SceneObj::~SceneObj() {
 }
 
 void SceneObj::Draw() {
-	
+	if (sprite.Texture().id <= 0) {
+		OnDraw();
+	}
+}
+void SceneObj::OnDraw() {
+	sprite.Draw();
 }
 
 void SceneObj::AddChild(SceneObj child) {
 
 	child.parent = this; // sets this SceneObject to the parent of the child
 
-	children.push_back(child); // adds the child to this SceneObjects children list
+	children.add(child); // adds the child to this SceneObjects children list
 }
 void SceneObj::RemoveChild(SceneObj child) {
 	
