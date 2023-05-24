@@ -1,7 +1,5 @@
 #include "Game.h"
 
-char dir[] = "C:\\Users\\s200080\\Documents\\RetroGame\\Images\\BasicBackground.png";
-
 Game::Game()
 {
 
@@ -25,36 +23,51 @@ void Game::Run()
 void Game::Load() {
 	time_t t;
 	srand((unsigned)time(&t));
-	
-	SceneObj bkgrnd = SceneObj(dir);
-	Objs.add(bkgrnd);
+	char dir[] = "..\\Images\\BasicBackground.png";
+	background = SceneObj(dir, middle);
+	char dirr[] = "..\\Images\\CrossHair.png";
+	shot = SceneObj{ dirr, Vector2{-10,-10} };
 }
 void Game::Unload() {
 
 }
 
 void Game::Update(float deltaTime) {
-	
+	timer -= deltaTime;
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 		Vector2 mousepos = GetMousePosition();
-		
+		timer = 1;
 		Shoot(mousepos);
 	}
 	else if (IsKeyPressed(KEY_R)) {
 
 	}
+	if (timer <= 0 && (shot.position().x != -10 || shot.position().y != -10)) {
+		shot.MoveTo(Vector2{-10,-10});
+	}
+}
+
+void Game::spawnDuck() {
 	
+
+
 }
 
 void Game::Shoot(Vector2 mousePos) {
-	std::cout << "x: " << mousePos.x << " y: " << mousePos.y << "\n";
-
+	Vector2 posi = Vector2{mousePos.x, mousePos.y};
+	shot.MoveTo(posi);
 }
 
 void Game::Draw() {
 	BeginDrawing();
 	ClearBackground(RAYWHITE);
-
+	
+	background.Draw();
+	for (size_t i = 0; i < Objs.size(); i++)
+	{
+		Objs[i].Draw();
+	}
+	shot.Draw();
 	EndDrawing();
 }
 

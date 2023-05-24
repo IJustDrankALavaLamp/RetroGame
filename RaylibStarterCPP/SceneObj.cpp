@@ -1,37 +1,38 @@
 #include "SceneObj.h"
 
+
 SceneObj::SceneObj() {
 	pos.x = 0; pos.y = 0;
 }
-SceneObj::SceneObj(char image[]) {
-	SpriteObj sprit = SpriteObj(image);
-	sprite = sprit;
+SceneObj::SceneObj(char * filePath) {
+	pos.x = 0; pos.y = 0;
+	Image image = LoadImage(filePath);
+	texture = LoadTextureFromImage(image);
 }
-SceneObj::~SceneObj() {
-	if (parent != nullptr) {
-		parent -> RemoveChild(*this);
-	}
-}
-
-void SceneObj::Draw() {
-	if (sprite.Texture().id <= 0) {
-		OnDraw();
-	}
-}
-void SceneObj::OnDraw() {
-	sprite.Draw();
-}
-
-void SceneObj::AddChild(SceneObj child) {
-
-	child.parent = this; // sets this SceneObject to the parent of the child
-
-	children.add(child); // adds the child to this SceneObjects children list
-}
-void SceneObj::RemoveChild(SceneObj child) {
+SceneObj::SceneObj(Vector2 posi) {
+	pos.x = posi.x;
+	pos.y = posi.y;
 	
-	if (child.parent == this) {
-		child.parent = nullptr;
-	}
-	children.remove(child); 
+}
+SceneObj::SceneObj(char* filePath, Vector2 posi) {
+	pos.x = posi.x; pos.y = posi.y;
+	Image image = LoadImage(filePath);
+	texture = LoadTextureFromImage(image);
+	UnloadImage(image);
+}
+/// <summary>
+/// Draw Object
+/// </summary>
+void SceneObj::Draw() {
+
+	Rectangle source{ 0, 0, texture.width, texture.height }; // how much of the image from top left
+	Rectangle position{ pos.x, pos.y, texture.width, texture.height }; // scale of image
+	Vector2 origin{ texture.width / 2, texture.height / 2 }; // where to draw from
+	DrawTexturePro(texture,
+		source, position, origin,
+		0, WHITE);
+}
+void SceneObj::MoveTo(Vector2 newPos) {
+	pos = newPos;
+	std::cout << "x: " << pos.x << " y: " << pos.y << "\n";
 }

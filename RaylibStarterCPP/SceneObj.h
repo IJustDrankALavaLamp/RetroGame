@@ -1,29 +1,29 @@
+#pragma once
 #include "raylib.h"
 #include "raygui.h"
+#include <list>
+#include <vector>
+#include <iterator>
+#include <iostream>
 
-#include "SpriteObj.h"
-#include "ObjList.h"
 class SceneObj
 {
 public:
 
 	SceneObj();
-	SceneObj(char image[]);
-	~SceneObj();
-	 void Draw();
+	SceneObj(char * filePath);
+	SceneObj(Vector2 posi);
+	SceneObj(char * filePath, Vector2 posi);
 
+	void MoveTo(Vector2 newPos);
 
-	 void AddChild(SceneObj child);
-	 void RemoveChild(SceneObj child);
-
+	void Draw();
 public:
-
-	SceneObj* parent = nullptr;
+	Vector2 position() { return pos; }
 private:
-	void OnDraw();
 private:
+	
 	Vector2 pos;
-	ObjList children;
-	SpriteObj sprite;
+	Texture2D texture;
 };
 
