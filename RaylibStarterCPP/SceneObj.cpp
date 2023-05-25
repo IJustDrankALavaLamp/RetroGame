@@ -20,6 +20,13 @@ SceneObj::SceneObj(char* filePath, Vector2 posi) {
 	texture = LoadTextureFromImage(image);
 	UnloadImage(image);
 }
+
+bool SceneObj::isDuck() { return false; }
+
+void SceneObj::UpdateObj() {
+
+}
+
 /// <summary>
 /// Draw Object
 /// </summary>

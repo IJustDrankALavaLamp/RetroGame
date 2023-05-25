@@ -3,10 +3,10 @@
 #include "raylib.h"
 #include <iostream>
 #include <string>
-#include <list>
 #include <vector>
 #include <iterator>
 
+#include "Duck.h"
 #include "SceneObj.h"
 class Game {
 public:

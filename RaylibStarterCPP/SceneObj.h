@@ -16,12 +16,14 @@ public:
 	SceneObj(char * filePath, Vector2 posi);
 
 	void MoveTo(Vector2 newPos);
+	virtual bool isDuck();
+	virtual void UpdateObj();
 
 	void Draw();
 public:
 	Vector2 position() { return pos; }
-private:
-private:
+
+protected:
 	
 	Vector2 pos;
 	Texture2D texture;

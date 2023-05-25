@@ -27,6 +27,8 @@ void Game::Load() {
 	background = SceneObj(dir, middle);
 	char dirr[] = "..\\Images\\CrossHair.png";
 	shot = SceneObj{ dirr, Vector2{-10,-10} };
+
+	spawnDuck();
 }
 void Game::Unload() {
 
@@ -48,14 +50,17 @@ void Game::Update(float deltaTime) {
 }
 
 void Game::spawnDuck() {
-	
 
+	Duck newDuck = Duck();
+
+	Objs.push_back(newDuck);
 
 }
 
 void Game::Shoot(Vector2 mousePos) {
 	Vector2 posi = Vector2{mousePos.x, mousePos.y};
 	shot.MoveTo(posi);
+
 }
 
 void Game::Draw() {

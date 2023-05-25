@@ -167,11 +167,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Duck.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneObj.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Duck.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="SceneObj.h" />
   </ItemGroup>
