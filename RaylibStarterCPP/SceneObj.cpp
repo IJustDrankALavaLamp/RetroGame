@@ -3,6 +3,7 @@
 
 SceneObj::SceneObj() {
 	pos.x = 0; pos.y = 0;
+	texture = Texture2D{};
 }
 SceneObj::SceneObj(char * filePath) {
 	pos.x = 0; pos.y = 0;
@@ -12,7 +13,7 @@ SceneObj::SceneObj(char * filePath) {
 SceneObj::SceneObj(Vector2 posi) {
 	pos.x = posi.x;
 	pos.y = posi.y;
-	
+	texture = Texture2D{};
 }
 SceneObj::SceneObj(char* filePath, Vector2 posi) {
 	pos.x = posi.x; pos.y = posi.y;
@@ -24,7 +25,23 @@ SceneObj::SceneObj(char* filePath, Vector2 posi) {
 bool SceneObj::isDuck() { return false; }
 
 void SceneObj::UpdateObj() {
+}
+bool SceneObj::isCollide(Vector2 other) {
+	Vector2 minS = Vector2{ pos.x - (texture.width), pos.y - (texture.height)};
+	Vector2 maxS = Vector2{pos.x + (texture.width), pos.y + (texture.height) };
+	
+	if ((other.x > minS.x && other.y > minS.y) && (other.x < maxS.x && other.y < maxS.y)) {
+		std::cout << "true" << "\n";
+		return true;
+	}
+	else
+		std::cout << "false" << "\n";
+		return false;
+}
 
+void SceneObj::MoveTo(Vector2 newPos) {
+	pos = newPos;
+	std::cout << "x: " << pos.x << " y: " << pos.y << "\n";
 }
 
 /// <summary>
@@ -32,14 +49,11 @@ void SceneObj::UpdateObj() {
 /// </summary>
 void SceneObj::Draw() {
 
-	Rectangle source{ 0, 0, texture.width, texture.height }; // how much of the image from top left
-	Rectangle position{ pos.x, pos.y, texture.width, texture.height }; // scale of image
-	Vector2 origin{ texture.width / 2, texture.height / 2 }; // where to draw from
+	Rectangle source{ 0, 0, (float)texture.width, (float)texture.height }; // how much of the image from top left
+	Rectangle position{ (float)pos.x, (float)pos.y, (float)texture.width, (float)texture.height }; // scale of image
+	Vector2 origin{ (float)(texture.width / 2), (float)(texture.height / 2) }; // where to draw from
 	DrawTexturePro(texture,
 		source, position, origin,
 		0, WHITE);
 }
-void SceneObj::MoveTo(Vector2 newPos) {
-	pos = newPos;
-	std::cout << "x: " << pos.x << " y: " << pos.y << "\n";
-}
+

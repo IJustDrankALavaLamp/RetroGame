@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <iterator>
 
 #include "Duck.h"
 #include "SceneObj.h"
@@ -33,5 +32,5 @@ private:
 	SceneObj background;
 	SceneObj foreground;
 	SceneObj shot;
-	std::vector<SceneObj> Objs;
+	std::vector<Duck> Objs;
 };
