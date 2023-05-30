@@ -2,6 +2,9 @@
 
 int main(int argc, char* argv[])
 {
-	Game game;
-	game.Run();
+	
+	{
+		Game game;
+		game.Run();
+	}
 }
