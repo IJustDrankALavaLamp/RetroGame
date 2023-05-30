@@ -49,11 +49,17 @@ void SceneObj::MoveTo(Vector2 newPos) {
 /// </summary>
 void SceneObj::Draw() {
 
+<<<<<<< Updated upstream
 	Rectangle source{ 0, 0, (float)texture.width, (float)texture.height }; // how much of the image from top left
 	Rectangle position{ (float)pos.x, (float)pos.y, (float)texture.width, (float)texture.height }; // scale of image
 	Vector2 origin{ (float)(texture.width / 2), (float)(texture.height / 2) }; // where to draw from
+=======
+	Rectangle source{ 0.0f, 0.0f, (float)texture.width, (float)texture.height }; // how much of the image from top left
+	Rectangle position{ (float)pos.x, (float)pos.y, (float)texture.width,(float)texture.height }; // scale of image
+	Vector2 origin{ (float)(texture.width / 2) }; // where to draw from
+>>>>>>> Stashed changes
 	DrawTexturePro(texture,
 		source, position, origin,
-		0, WHITE);
+		0.0f, WHITE);
 }
 
