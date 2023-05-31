@@ -9,9 +9,11 @@ public:
 	Duck(int direct);
 	Duck(int direct, Vector2 posi);
 
+	bool checkScreen();
 	bool isDuck() override;
 	void UpdateObj() override;
 	void Draw() override;
+	
 private:
 	Vector2 randomPosition();
 	

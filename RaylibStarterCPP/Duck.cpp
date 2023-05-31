@@ -68,26 +68,59 @@ void Duck::Draw() {
 }
 
 Vector2 Duck::randomPosition() {
+	float x = 0; float y = 0;
+	switch (dir) {
+	case right:
+		x = -10;
+		y = (std::rand() % 400) + 10;
+			break;
+		case left:
+			x = GetScreenWidth() + 10;
+			y = (std::rand() % 400) + 10;
+			break;
+		case up:
+			x = std::rand() % GetScreenWidth();
+			y = GetScreenHeight() + 10;
+			break;
+		case expLeft:
+			x = std::rand() % GetScreenWidth();
+			y = GetScreenHeight() + 10;
+			break;
+		case expRight:
+			x = std::rand() % GetScreenWidth();
+			y = GetScreenHeight() + 10;
+			break;
+		default:
 
-	return Vector2{ 200, 200 };
+			break;
+	}
+	return Vector2{ x, y };
 }
 void Duck::randomDirection() {
 	int k = std::rand() % 5;
 	switch (k) {
 	case 0:
 		dir = right;
+		std::cout << "right\n";
 		break;
 	case 1:
 		dir = left;
+		std::cout << "left\n";
 		break;
 	case 2:
 		dir = up;
+		std::cout << "up\n";
 		break;
 	case 3:
 		dir = expRight;
-			break;
+		std::cout << "expRight\n";
+		break;
 	case 4:
 		dir = expLeft;
+		std::cout << "expLeft\n";
+		break;
+	default:
+		dir = up;
 		break;
 	}
 }
@@ -102,26 +135,56 @@ void Duck::UpdateObj() {
 	Movement();
 }
 
+bool Duck::checkScreen() {
+	switch (dir) {
+	case right:
+		if (pos.x == GetScreenWidth() + 10) {
+			return false;
+		}
+		break;
+	case left:
+		if (pos.x == -10) return false;
+		break;
+	case up:
+		if (pos.y == -10) return false;
+		break;
+	case expLeft:
+		if (pos.x == -10 || pos.y == -10) return false;
+		break;
+	case expRight:
+		if (pos.x == GetScreenWidth() + 10 || pos.y == -10) return false;
+		break;
+	}
+	return true;
+}
+
 void Duck::Movement() {
 	Vector2 newPos = pos;
-
-	switch(dir){
+	float x, y;
+	switch (dir) {
 	case right:
 		newPos = Vector2{ newPos.x + speed, newPos.y };
+
 		break;
 	case left:
 		newPos = Vector2{ newPos.x - speed, newPos.y };
-		break;
-	case up:
-		newPos = Vector2{newPos.x, newPos.y - speed};
-		break;
-	case expLeft:
-		int x = 0, y = 0;
-		newPos = Vector2{};
-		break;
-	case expRight:
 
 		break;
+	case up:
+		newPos = Vector2{ newPos.x, newPos.y - speed };
+
+		break;
+	case expLeft:
+		newPos.x -= speed;  newPos.y -= speed;
+		break;
+	case expRight:
+		newPos.x += speed;  newPos.y -= speed;
+		break;
+	default:
+		newPos = Vector2{ newPos.x, newPos.y - speed };
+		std::cout << "default\n";
+		break;
 	}
+
 	pos = newPos;
 }

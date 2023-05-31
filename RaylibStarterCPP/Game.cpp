@@ -23,12 +23,13 @@ void Game::Run()
 void Game::Load() {
 	time_t t;
 	srand((unsigned)time(&t));
-	char dir[] = "..\\Images\\BasicBackground.png";
+	char dir[] = "..\\Images\\Background.png";
 	background = SceneObj(dir, middle);
 	char dirr[] = "..\\Images\\CrossHair.png";
 	shot = SceneObj{ dirr, Vector2{-10,-10} };
+	char dirrr[] = "..\\Images\\Grass.png";
+	foreground = SceneObj{ dirrr, middle };
 
-	spawnDuck();
 }
 void Game::Unload() {
 
@@ -36,9 +37,16 @@ void Game::Unload() {
 
 void Game::Update(float deltaTime) {
 	timer -= deltaTime;
+	if (Objs.size() < 25) {
+		spawnDuck();
+	}
 	for (size_t i = 0; i < Objs.size(); i++)
 	{
 		Objs[i].UpdateObj();
+		if (!Objs[i].checkScreen()) {
+			Objs.erase(Objs.begin() + i);
+			i--;
+		}
 	}
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 		Vector2 mousepos = GetMousePosition();
@@ -83,6 +91,7 @@ void Game::Draw() {
 	{
 		Objs[i].Draw();
 	}
+	foreground.Draw();
 	shot.Draw();
 	EndDrawing();
 }
