@@ -76,6 +76,7 @@ void Game::Shoot(Vector2 mousePos) {
 	for (size_t i = 0; i < Objs.size(); i++) {
 		if (shot.isCollide(Objs[i].position())) {
 			Objs.erase(Objs.begin() + i);
+			score += 10;
 			i--;
 		}
 	}
@@ -93,6 +94,9 @@ void Game::Draw() {
 	}
 	foreground.Draw();
 	shot.Draw();
+	
+	DrawText(TextFormat("Score: %d", score), 20, (GetScreenHeight() - 50), 20, BLACK);
+
 	EndDrawing();
 }
 
