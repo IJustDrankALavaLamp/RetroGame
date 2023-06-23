@@ -37,9 +37,11 @@ void Game::Unload() {
 
 void Game::Update(float deltaTime) {
 	timer -= deltaTime;
-	if (Objs.size() < 25) {
+	if (Objs.size() < 25 && count > 31) {
 		spawnDuck();
+		count = 0;
 	}
+	else { count++; }
 	for (size_t i = 0; i < Objs.size(); i++)
 	{
 		Objs[i].UpdateObj();
@@ -94,8 +96,8 @@ void Game::Draw() {
 	}
 	foreground.Draw();
 	shot.Draw();
-	
-	DrawText(TextFormat("Score: %d", score), 20, (GetScreenHeight() - 50), 20, BLACK);
+
+	DrawText(TextFormat("Score: %i", (int)score), 20, (GetScreenHeight() - 50), 20, BLACK);
 
 	EndDrawing();
 }

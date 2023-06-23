@@ -27,6 +27,7 @@ private:
 	int m_windowWidth = 640;
 	int m_windowHeight = 480;
 	float timer = 2;
+	int count = 0;
 	float score = 0;
 
 	Vector2 middle = Vector2{(float)m_windowWidth / 2, (float)m_windowHeight / 2};
