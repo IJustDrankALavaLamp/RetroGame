@@ -20,6 +20,7 @@ void Game::Run()
 
 	Unload();
 }
+
 void Game::Load() {
 	time_t t;
 	srand((unsigned)time(&t));
@@ -29,15 +30,19 @@ void Game::Load() {
 	shot = SceneObj{ dirr, Vector2{-10,-10} };
 	char dirrr[] = "..\\Images\\Grass.png";
 	foreground = SceneObj{ dirrr, middle };
+	ammo = max_Ammo;
+
 
 }
+
 void Game::Unload() {
 
 }
 
 void Game::Update(float deltaTime) {
 	timer -= deltaTime;
-	if (Objs.size() < 25 && count > 31) {
+	reloadTime -= deltaTime;
+	if (Objs.size() < 20 && count > 31) {
 		spawnDuck();
 		count = 0;
 	}
@@ -56,10 +61,15 @@ void Game::Update(float deltaTime) {
 		Shoot(mousepos);
 	}
 	else if (IsKeyPressed(KEY_R)) {
-
+		reloading = true;
+		reloadTime = 2;
 	}
 	if (timer <= 0 && (shot.position().x != -10 || shot.position().y != -10)) {
 		shot.MoveTo(Vector2{ -10,-10 });
+	}
+	if (reloading && reloadTime < 0) {
+		ammo = max_Ammo;
+		reloading = false;
 	}
 
 }
@@ -72,17 +82,19 @@ void Game::spawnDuck() {
 }
 
 void Game::Shoot(Vector2 mousePos) {
-	Vector2 posi = Vector2{ mousePos.x, mousePos.y };
-	shot.MoveTo(posi);
+	if (ammo > 0 && reloading == false) {
+		Vector2 posi = Vector2{ mousePos.x, mousePos.y };
+		ammo--;
+		shot.MoveTo(posi);
 
-	for (size_t i = 0; i < Objs.size(); i++) {
-		if (shot.isCollide(Objs[i].position())) {
-			Objs.erase(Objs.begin() + i);
-			score += 10;
-			i--;
+		for (size_t i = 0; i < Objs.size(); i++) {
+			if (shot.isCollide(Objs[i].position())) {
+				Objs.erase(Objs.begin() + i);
+				score += 10;
+				i--;
+			}
 		}
 	}
-
 }
 
 void Game::Draw() {
@@ -97,9 +109,14 @@ void Game::Draw() {
 	foreground.Draw();
 	shot.Draw();
 
-	DrawText(TextFormat("Score: %i", (int)score), 20, (GetScreenHeight() - 50), 20, BLACK);
+	DrawText(TextFormat("Score: %i", (int)score), 20, (m_windowHeight - 50), 20, BLACK);
+	DrawText(TextFormat("Ammo: %i/5", (int)ammo),(m_windowWidth - 150), (m_windowHeight - 50), 20, BLACK);
+	if (ammo == 0 && reloading == false) {
+		DrawText("Press 'R' to Reload", (20), (10), 40, RED);
+	}
+	else if (reloading == true) {
+		DrawText("Reloading...", (20), (10), 40, RED);
+	}
 
 	EndDrawing();
 }
-
-

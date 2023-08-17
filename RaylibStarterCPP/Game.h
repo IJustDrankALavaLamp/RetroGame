@@ -7,6 +7,8 @@
 
 #include "Duck.h"
 #include "SceneObj.h"
+
+
 class Game {
 public:
 	Game();
@@ -29,6 +31,11 @@ private:
 	float timer = 2;
 	int count = 0;
 	float score = 0;
+
+	int ammo = 0;
+	int max_Ammo = 5;
+	bool reloading = false;
+	float reloadTime = 0;
 
 	Vector2 middle = Vector2{(float)m_windowWidth / 2, (float)m_windowHeight / 2};
 	SceneObj background;
